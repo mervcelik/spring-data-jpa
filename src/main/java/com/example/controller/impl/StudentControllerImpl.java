@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.controller.IStudentController;
 import com.example.dto.DtoStudent;
 import com.example.dto.DtoStudentIU;
-import com.example.entities.Student;
 import com.example.services.IStudentService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/rest/api/student")
@@ -28,36 +29,31 @@ public class StudentControllerImpl implements IStudentController {
 	
 	@PostMapping(path = "/save")
 	@Override
-	public DtoStudent saveStudent(@RequestBody DtoStudentIU student) {
-		// TODO Auto-generated method stub
+	public DtoStudent saveStudent(@RequestBody @Valid DtoStudentIU student) {
 		return studentService.saveStudent(student);
 	}
 
 	@GetMapping(path = "/list")
 	@Override
 	public List<DtoStudent> getAllStudents() {
-		// TODO Auto-generated method stub
 		return studentService.getAllStudents();
 	}
 
 	@GetMapping(path = "/list/{id}")
 	@Override
 	public DtoStudent getStudentById(@PathVariable(name = "id")Integer id) {
-		// TODO Auto-generated method stub
 		return studentService.getStudentById(id);
 	}
 
 	@DeleteMapping(path = "/delete/{id}")
 	@Override
 	public void deleteStudent(@PathVariable Integer id) {
-		// TODO Auto-generated method stub
 		studentService.deleteStudent(id);
 	}
 
 	@PutMapping(path = "/update/{id}")
 	@Override
-	public DtoStudent updateStudent(@PathVariable Integer id,@RequestBody DtoStudentIU updateStudent) {
-		// TODO Auto-generated method stub
+	public DtoStudent updateStudent(@PathVariable Integer id,@RequestBody @Valid DtoStudentIU updateStudent) {
 		return studentService.updateStudent(id, updateStudent);
 	}
 

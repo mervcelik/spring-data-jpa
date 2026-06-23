@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.example.dto.DtoStudent;
 import com.example.dto.DtoStudentIU;
-import com.example.entities.Student;
 
 public interface IStudentController {
 

@@ -1,7 +1,6 @@
 package com.example.services.impl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,15 +27,14 @@ public class StudentServiceImpl implements IStudentService {
 		BeanUtils.copyProperties(dtoStudent, student);
 		Student dbStudent = studentRepository.save(student);
 
-		BeanUtils.copyProperties(student, response);
+		BeanUtils.copyProperties(dbStudent, response);
 		return response;
 	}
 
 	@Override
 	public List<DtoStudent> getAllStudents() {
-		// TODO Auto-generated method stub
-		List<DtoStudent> response = new ArrayList();
-		List<Student> list = studentRepository.findAll();
+		List<DtoStudent> response = new ArrayList<>();
+		List<Student> list = studentRepository.findallStudents();
 		for (Student student : list) {
 			DtoStudent dtoStudent = new DtoStudent();
 			BeanUtils.copyProperties(student, dtoStudent);
@@ -47,7 +45,6 @@ public class StudentServiceImpl implements IStudentService {
 
 	@Override
 	public DtoStudent getStudentById(Integer id) {
-		// TODO Auto-generated method stub
 		DtoStudent response = new DtoStudent();
 		Optional<Student> optional = studentRepository.findById(id);
 		if (optional.isPresent()) {
@@ -59,7 +56,6 @@ public class StudentServiceImpl implements IStudentService {
 
 	@Override
 	public void deleteStudent(Integer id) {
-//		// TODO Auto-generated method stub
 		Optional<Student> optional = studentRepository.findById(id);
 		if (optional.isPresent()) {
 			studentRepository.delete(optional.get());
@@ -68,7 +64,6 @@ public class StudentServiceImpl implements IStudentService {
 
 	@Override
 	public DtoStudent updateStudent(Integer id, DtoStudentIU dtoStudentIU) {
-		// TODO Auto-generated method stub
 		DtoStudent dto = new DtoStudent();
 
 		Optional<Student> optional = studentRepository.findById(id);
