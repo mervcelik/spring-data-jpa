@@ -1,5 +1,8 @@
 package com.example.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,4 +16,6 @@ public class DtoStudent {
 
 	private String firstName;
 	private String lastName;
+	
+	private List<DtoCourse> dtoCourses= new ArrayList<>();
 }

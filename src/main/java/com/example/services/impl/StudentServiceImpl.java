@@ -8,8 +8,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.dto.DtoCourse;
 import com.example.dto.DtoStudent;
 import com.example.dto.DtoStudentIU;
+import com.example.entities.Course;
 import com.example.entities.Student;
 import com.example.repository.StudentRepository;
 import com.example.services.IStudentService;
@@ -38,6 +40,14 @@ public class StudentServiceImpl implements IStudentService {
 		for (Student student : list) {
 			DtoStudent dtoStudent = new DtoStudent();
 			BeanUtils.copyProperties(student, dtoStudent);
+
+			for (Course course : student.getCourse()) {
+				DtoCourse dtoCourse = new DtoCourse();
+				BeanUtils.copyProperties(course, dtoCourse);
+
+				dtoStudent.getDtoCourses().add(dtoCourse);
+			}
+
 			response.add(dtoStudent);
 		}
 		return response;
@@ -45,13 +55,24 @@ public class StudentServiceImpl implements IStudentService {
 
 	@Override
 	public DtoStudent getStudentById(Integer id) {
-		DtoStudent response = new DtoStudent();
+		DtoStudent dtoStudent = new DtoStudent();
 		Optional<Student> optional = studentRepository.findById(id);
-		if (optional.isPresent()) {
-			BeanUtils.copyProperties(optional.get(), response);
-			return response;
+		if (optional.isEmpty()) {
+			return null;
 		}
-		return null;
+		Student dbStudent = optional.get();
+		BeanUtils.copyProperties(dbStudent, dtoStudent);
+
+		if (dbStudent.getCourse() != null && !dbStudent.getCourse().isEmpty()) {
+			for (Course course : dbStudent.getCourse()) {
+				DtoCourse dtoCourse = new DtoCourse();
+				BeanUtils.copyProperties(course, dtoCourse);
+
+				dtoStudent.getDtoCourses().add(dtoCourse);
+
+			}
+		}
+		return dtoStudent;
 	}
 
 	@Override
