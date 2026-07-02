@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.controller.IStudentController;
 import com.example.dto.DtoStudent;
 import com.example.dto.DtoStudentIU;
+import com.example.entities.RootEntity;
 import com.example.services.IStudentService;
 
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/rest/api/student")
-public class StudentControllerImpl implements IStudentController {
+public class StudentControllerImpl extends RestBaseController implements IStudentController {
 
 	
 	@Autowired
@@ -29,20 +30,23 @@ public class StudentControllerImpl implements IStudentController {
 	
 	@PostMapping(path = "/save")
 	@Override
-	public DtoStudent saveStudent(@RequestBody @Valid DtoStudentIU student) {
-		return studentService.saveStudent(student);
+	public RootEntity<DtoStudent> saveStudent(@RequestBody @Valid DtoStudentIU student) {
+		DtoStudent dtoStudent = studentService.saveStudent(student);
+		return ok(dtoStudent);
 	}
 
 	@GetMapping(path = "/list")
 	@Override
-	public List<DtoStudent> getAllStudents() {
-		return studentService.getAllStudents();
+	public RootEntity<List<DtoStudent>> getAllStudents() {
+		List<DtoStudent> list = studentService.getAllStudents();
+		return ok(list);
 	}
 
 	@GetMapping(path = "/list/{id}")
 	@Override
-	public DtoStudent getStudentById(@PathVariable Integer id) {
-		return studentService.getStudentById(id);
+	public RootEntity<DtoStudent> getStudentById(@PathVariable Integer id) {
+		DtoStudent dtoStudent = studentService.getStudentById(id);
+		return ok(dtoStudent);
 	}
 
 	@DeleteMapping(path = "/delete/{id}")
@@ -53,8 +57,9 @@ public class StudentControllerImpl implements IStudentController {
 
 	@PutMapping(path = "/update/{id}")
 	@Override
-	public DtoStudent updateStudent(@PathVariable Integer id,@RequestBody @Valid DtoStudentIU updateStudent) {
-		return studentService.updateStudent(id, updateStudent);
+	public RootEntity<DtoStudent> updateStudent(@PathVariable Integer id,@RequestBody @Valid DtoStudentIU updateStudent) {
+		DtoStudent dtoStudent = studentService.updateStudent(id, updateStudent);
+		return ok(dtoStudent);
 	}
 
 	

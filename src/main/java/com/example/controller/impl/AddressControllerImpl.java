@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.controller.IAddressController;
 import com.example.dto.DtoAddress;
+import com.example.entities.RootEntity;
 import com.example.services.IAddressService;
+
 
 @RestController
 @RequestMapping("/rest/api/address")
-public class AddressControllerImpl implements IAddressController{
+public class AddressControllerImpl extends RestBaseController implements IAddressController{
 
 	
 	@Autowired 
@@ -20,8 +22,9 @@ public class AddressControllerImpl implements IAddressController{
 	
 	@GetMapping(path = "/list/{id}")
 	@Override
-	public DtoAddress findAddressById(@PathVariable Long id) {
-		return addressService.findAddressById(id);
+	public RootEntity<DtoAddress> findAddressById(@PathVariable Long id) {
+		DtoAddress dto = addressService.findAddressById(id);
+		return ok(dto);
 	}
 
 }

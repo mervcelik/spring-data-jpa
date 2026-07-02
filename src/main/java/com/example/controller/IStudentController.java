@@ -4,12 +4,13 @@ import java.util.List;
 
 import com.example.dto.DtoStudent;
 import com.example.dto.DtoStudentIU;
+import com.example.entities.RootEntity;
 
 public interface IStudentController {
 
-	public DtoStudent saveStudent(DtoStudentIU student);
-	public  List<DtoStudent> getAllStudents();
-	public DtoStudent getStudentById(Integer id);
+	public RootEntity<DtoStudent> saveStudent(DtoStudentIU student);
+	public  RootEntity<List<DtoStudent>> getAllStudents();
+	public RootEntity<DtoStudent> getStudentById(Integer id);
 	public void deleteStudent(Integer id);
-	public DtoStudent updateStudent(Integer id,DtoStudentIU updateStudent);
+	public RootEntity<DtoStudent> updateStudent(Integer id,DtoStudentIU updateStudent);
 }

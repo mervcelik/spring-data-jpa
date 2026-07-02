@@ -1,6 +1,4 @@
-package com.example.exception;
-
-import java.util.Date;
+package com.example.handler;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ApiError<T> {
 
-	private String id;
-	private Date errorTime;
-	private T errors;
+	private Integer status;
+	private Exception<T> errors;
 }

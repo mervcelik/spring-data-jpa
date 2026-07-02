@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.controller.IHomeController;
 import com.example.dto.DtoHome;
+import com.example.entities.RootEntity;
 import com.example.services.IHomeService;
 
 @RestController
 @RequestMapping("/rest/api/home")
-public class HomeControllerImpl implements IHomeController {
+public class HomeControllerImpl extends RestBaseController implements IHomeController {
 
 	
 	@Autowired
@@ -20,8 +21,9 @@ public class HomeControllerImpl implements IHomeController {
 	
 	@GetMapping(path = "/list/{id}")
 	@Override
-	public DtoHome findHomeById(@PathVariable Long id) {
-		return homeService.findHomeById(id);
+	public RootEntity<DtoHome> findHomeById(@PathVariable Long id) {
+		DtoHome dtoHome = homeService.findHomeById(id);
+		return ok(dtoHome);
 	}
 
 }

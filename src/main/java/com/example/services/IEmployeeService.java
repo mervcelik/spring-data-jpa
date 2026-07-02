@@ -7,4 +7,6 @@ import com.example.dto.DtoEmployee;
 public interface IEmployeeService {
 
 	public List<DtoEmployee> findAllEmployees();
+	
+	public DtoEmployee findEmployeeById(Long id);
 }
